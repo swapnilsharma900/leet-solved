@@ -1,38 +1,19 @@
 class Solution {
-    static int value(char r) {
-        if (r == 'I')
-            return 1;
-        if (r == 'V')
-            return 5;
-        if (r == 'X')
-            return 10;
-        if (r == 'L')
-            return 50;
-        if (r == 'C')
-            return 100;
-        if (r == 'D')
-            return 500;
-        if (r == 'M')
-            return 1000;
-        return -1;
-    }
-    public int romanToInt(String str) {
-        int res = 0;
-        for (int i = 0; i < str.length(); i++) {
-            int s1 = value(str.charAt(i));
-            if (i + 1 < str.length()) {
-                int s2 = value(str.charAt(i + 1));
-                if (s1 >= s2)
-                    res = res + s1;
-                else {
-                    res = res + s2 - s1;
-                    i++;
-                }
+    public int romanToInt(String s) {
+        int ans = 0, num = 0;
+        for (int i = s.length()-1; i >= 0; i--) {
+            switch(s.charAt(i)) {
+                case 'I': num = 1; break;
+                case 'V': num = 5; break;
+                case 'X': num = 10; break;
+                case 'L': num = 50; break;
+                case 'C': num = 100; break;
+                case 'D': num = 500; break;
+                case 'M': num = 1000; break;
             }
-            else
-                res = res + s1;
+            if (4 * num < ans) ans -= num;
+            else ans += num;
         }
-        return res;
+        return ans;
     }
 }
-
